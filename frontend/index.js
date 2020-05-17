@@ -1,6 +1,7 @@
 const {
     Client
 } = require("@hashgraph/sdk");
+const axios = require("axios").default;
 
 const MAX_TEAM_SIZE = 4;
 
@@ -66,6 +67,13 @@ function renderFreeAgents(freeAgents) {
         description.innerText = freeAgent.description;
         container.appendChild(description);
     }
+}
+
+async function getTeams() {
+    return (await axios.get("/teams")).data;
+}
+async function getFreeAgents() {
+    return (await axios.get("/free-agents")).data;
 }
 
 renderHeader();
