@@ -70,6 +70,14 @@ function renderFreeAgents(freeAgents) {
     }
 }
 
+const teamCreationForm = document.getElementById("team-creation-form");
+const teamName = document.getElementById("teamname");
+const teamDescription = document.getElementById("team-description");
+teamCreationForm.onsubmit = function(e) {
+    e.preventDefault();
+    sendMessage(["CREATE", teamName.value, user.username, teamDescription.value]);
+}
+
 const freeAgentRegistrationForm = document.getElementById("free-agent-registration-form");
 const freeAgentDescription = document.getElementById("free-agent-description");
 freeAgentRegistrationForm.onsubmit = function(e) {
