@@ -6,35 +6,54 @@
   <title>Fair Team Builder</title>
 </head>
 
-<body>
-  <h1>Fair Team Builder</h1>
-  <div id="header"></div>
-  <div id="content" style="display: none;">
-    <div id="content-left">
-      <h3>Teams</h3>
-      <form id="team-creation-form">
-        <label>
-          Team Name
-          <input type="text" id="teamname">
-        </label>
-        <label>
-          Description
-          <input type="text" id="team-description">
-        </label>
-        <input type="submit" value="Create">
-      </form>
-      <div id="teams-container"></div>
-    </div>
-    <div id="content-right">
-      <h3>Free Agents</h3>
-      <form id="free-agent-registration-form">
-        <label>
-          Description
-          <input type="text" id="free-agent-description">
-        </label>
-        <input type="submit" value="Register">
-      </form>
-      <div id="free-agents-container"></div>
+<body class="bg-light">
+  <div class="py-md-3 mx-auto text-center">
+    <h1>Fair Team Builder</h1>
+    <p>Blockchain-based team building application.</p>
+  </div>
+  <div id="header"
+    class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+  </div>
+  <div id="content" class="container" style="display: none;">
+    <div class="row">
+      <div id="content-left" class="col-md-6">
+        <div class="row">
+          <h3 class="col-sm-12">Teams</h3>
+          <div class="col-sm-12">
+            <form id="team-creation-form" class="card p-3">
+              <label>
+                Team Name
+                <input type="text" id="teamname" class="form-control">
+              </label>
+              <label>
+                Description
+                <input type="text" id="team-description" class="form-control">
+              </label>
+              <input type="submit" value="Create" class="btn btn-primary">
+            </form>
+          </div>
+          <div class="col-sm-12">
+            <div id="teams-container" class="row"></div>
+          </div>
+        </div>
+      </div>
+      <div id="content-right" class="col-md-6">
+        <div class="row">
+          <h3 class="col-sm-12">Free Agents</h3>
+          <div class="col-sm-12">
+            <form id="free-agent-registration-form" class="card p-1">
+              <label>
+                Description
+                <input type="text" id="free-agent-description" class="form-control">
+              </label>
+              <input type="submit" value="Register" class="btn btn-primary">
+            </form>
+          </div>
+          <div class="col-sm-12">
+            <div id="free-agents-container" class="row"></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <script src="index.js"> </script>

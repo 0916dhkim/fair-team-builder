@@ -14,15 +14,18 @@ const user = JSON.parse(
 function renderHeader() {
     const header = document.getElementById("header");
     if (user) {
-        const greetings = document.createElement("h3");
+        const greetings = document.createElement("h5");
+        greetings.className = "my-0 mr-md-auto font-weight-normal";
         greetings.innerText = `Hello, ${user.username}`;
         header.appendChild(greetings);
         const logoutLink = document.createElement("a");
+        logoutLink.className = "btn btn-outline-primary";
         logoutLink.innerText = "Logout";
         logoutLink.href = "/logout";
         header.appendChild(logoutLink);
     } else {
         const loginLink = document.createElement("a");
+        loginLink.className = "btn btn-outline-primary";
         loginLink.innerText = "Login";
         loginLink.href = "/login";
         header.appendChild(loginLink);
@@ -34,11 +37,26 @@ function renderTeams(teams) {
     teamsContainer.innerHTML = "";
     for (const team of teams) {
         const container = document.createElement("div");
+        container.className = "col-sm-12 pt-3";
         teamsContainer.appendChild(container);
+
+        const card = document.createElement("div");
+        card.className = "card p-3";
+        container.appendChild(card);
 
         const name = document.createElement("h3");
         name.innerText = team.name;
-        container.appendChild(name);
+        card.appendChild(name);
+
+        const memberList = document.createElement("ul");
+        memberList.className = "list-group";
+        card.appendChild(memberList);
+        for (const member of team.members) {
+            const memberElement = document.createElement("li");
+            memberElement.className = "list-group-item";
+            memberElement.innerText = member.name;
+            memberList.appendChild(memberElement);
+        }
 
         // Check if the user is in this team.
         let includesUser = false;
@@ -50,26 +68,20 @@ function renderTeams(teams) {
         }
         if (includesUser) {
             const leaveButton = document.createElement("button");
+            leaveButton.className = "btn btn-danger mt-3";
             leaveButton.innerText = "Leave";
             leaveButton.onclick = function() {
                 sendMessage(["LEAVE", team.name, user.username]);
             }
-            container.appendChild(leaveButton);
+            card.appendChild(leaveButton);
         } else if (team.members.length < MAX_TEAM_SIZE) {
             const joinButton = document.createElement("button");
+            joinButton.className = "btn btn-success mt-3";
             joinButton.innerText = "Join";
             joinButton.onclick = function() {
                 sendMessage(["JOIN", team.name, user.username]);
             }
-            container.appendChild(joinButton);
-        }
-
-        const memberList = document.createElement("ul");
-        container.appendChild(memberList);
-        for (member of team.members) {
-            const memberElement = document.createElement("li");
-            memberElement.innerText = member.name;
-            memberList.appendChild(memberElement);
+            card.appendChild(joinButton);
         }
     }
 }
@@ -79,13 +91,20 @@ function renderFreeAgents(freeAgents) {
     freeAgentsContainer.innerHTML = "";
     for (const freeAgent of freeAgents) {
         const container = document.createElement("div");
+        container.className = "col-sm-12 pt-3";
         freeAgentsContainer.appendChild(container);
+
+        const card = document.createElement("div");
+        card.className = "card p-3";
+        container.appendChild(card);
+
         const name = document.createElement("h3");
         name.innerText = freeAgent.name;
-        container.appendChild(name);
+        card.appendChild(name);
+
         const description = document.createElement("p");
         description.innerText = freeAgent.description;
-        container.appendChild(description);
+        card.appendChild(description);
     }
 }
 
@@ -117,7 +136,7 @@ async function getTopicId() {
 renderHeader();
 if (user) {
     const content = document.getElementById("content");
-    content.style = "display: block";
+    content.style = "";
     Promise.resolve(getTeams()).then(teams => renderTeams(teams));
     Promise.resolve(getFreeAgents()).then(freeAgents => renderFreeAgents(freeAgents));
 }
