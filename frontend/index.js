@@ -39,9 +39,27 @@ function renderTeams(teams) {
         name.innerText = team.name;
         container.appendChild(name);
 
-        if (team.members.length < MAX_TEAM_SIZE) {
+        // Check if the user is in this team.
+        let includesUser = false;
+        for (const member of team.members) {
+            if (member.name === user.username) {
+                includesUser = true;
+                break;
+            }
+        }
+        if (includesUser) {
+            const leaveButton = document.createElement("button");
+            leaveButton.innerText = "Leave";
+            leaveButton.onclick = function() {
+                sendMessage(["LEAVE", team.name, user.username]);
+            }
+            container.appendChild(leaveButton);
+        } else if (team.members.length < MAX_TEAM_SIZE) {
             const joinButton = document.createElement("button");
             joinButton.innerText = "Join";
+            joinButton.onclick = function() {
+                sendMessage(["JOIN", team.name, user.username]);
+            }
             container.appendChild(joinButton);
         }
 
