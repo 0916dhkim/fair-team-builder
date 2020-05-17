@@ -157,6 +157,7 @@ async function getTopicId() {
     return ret;
 }
 Promise.resolve(getTopicId()).then(async (topicId) => {
+    console.log("Wait for topic subscription ...");
     await new Promise(res => setTimeout(res ,9000));
     new MirrorConsensusTopicQuery()
         .setTopicId(topicId)
@@ -164,6 +165,7 @@ Promise.resolve(getTopicId()).then(async (topicId) => {
             const message = new TextDecoder("utf-8").decode(res.message);
             handleMessage(message);
         });
+    console.log(`Subscribed to topic ${topicId}`);
 });
 
 // Express
