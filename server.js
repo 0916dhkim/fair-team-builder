@@ -41,6 +41,12 @@ app.get(
         path.resolve(__dirname, "static/login.html")
     )
 );
+app.get(
+    "/logout",
+    (req, res) => res.sendFile(
+        path.resolve(__dirname, "static/logout.html")
+    )
+);
 app.get("/topic/id", async function(req, res) {
     res.json(await getTopicId());
 });
