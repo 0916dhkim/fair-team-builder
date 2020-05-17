@@ -83,6 +83,8 @@ async function getTopicId() {
 
 renderHeader();
 if (user) {
+    const content = document.getElementById("content");
+    content.style = "display: block";
     Promise.resolve(getTeams()).then(teams => renderTeams(teams));
     Promise.resolve(getFreeAgents()).then(freeAgents => renderFreeAgents(freeAgents));
 
