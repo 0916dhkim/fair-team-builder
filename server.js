@@ -1,7 +1,10 @@
 const express = require("express");
+const environment_variables = require("./environment_variables");
 const app = express();
-const port = 3000;
 
 app.get("/", (req, res) => res.send("Hello, World!"));
 
-app.listen(port, () => console.log(`Fair Team Builder server listening on port ${port}.`));
+app.listen(
+    environment_variables.port,
+    () => console.log(`Fair Team Builder server listening on port ${environment_variables.port}.`)
+);
