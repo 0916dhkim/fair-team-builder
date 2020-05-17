@@ -5,7 +5,8 @@ const production = process.env.NODE_ENV === "production" || false;
 module.exports = {
     mode: production ? "production" : "development",
     entry: {
-        index: "./frontend/index.js"
+        index: "./frontend/index.js",
+        login: "./frontend/login.js"
     },
     output: {
         filename: "[name].js",
