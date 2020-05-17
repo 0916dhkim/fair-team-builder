@@ -1,5 +1,7 @@
 const {
-    Client
+    Client,
+    MirrorClient,
+    MirrorConsensusTopicQuery
 } = require("@hashgraph/sdk");
 const axios = require("axios").default;
 
@@ -75,7 +77,32 @@ async function getTeams() {
 async function getFreeAgents() {
     return (await axios.get("/free-agents")).data;
 }
+async function getTopicId() {
+    return (await axios.get("/topic/id")).data;
+}
+
+async function handleMessage() {
+    Promise.resolve(getTeams()).then(teams => renderTeams(teams));
+    Promise.resolve(getFreeAgents()).then(freeAgents => renderFreeAgents(freeAgents));
+}
 
 renderHeader();
-renderTeams([]);
-renderFreeAgents([]);
+if (user) {
+    Promise.resolve(getTeams()).then(teams => renderTeams(teams));
+    Promise.resolve(getFreeAgents()).then(freeAgents => renderFreeAgents(freeAgents));
+
+    const client = Client.forTestnet();
+    client.setOperator(
+        user.accountId,
+        user.privateKey
+    );
+
+    const mirrorClient = new MirrorClient(
+        "hcs.testnet.mirrornode.hedera.com:5600"
+    );
+    Promise.resolve(getTopicId()).then(topicId => {
+        new MirrorConsensusTopicQuery()
+            .setTopicId(topicId)
+            .subscribe(mirrorClient, handleMessage);
+    });
+}
