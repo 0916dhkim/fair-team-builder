@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const {
     Client,
     MirrorClient,
@@ -32,8 +33,8 @@ async function getTopicId() {
 
 // Express
 const app = express();
-app.use(express.static("static"));
 app.use(express.static("dist"));
+app.get("/", (req, res) => res.sendFile(path.resolve(__dirname, "static/index.html")));
 app.get("/topic/id", async function(req, res) {
     res.json(await getTopicId());
 });
