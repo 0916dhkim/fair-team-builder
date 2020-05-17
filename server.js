@@ -7,6 +7,10 @@ const {
 } = require("@hashgraph/sdk");
 const environment_variables = require("./environment_variables");
 
+// Data
+const teams = [];
+const freeAgents = [];
+
 // Hedera
 const client = Client.forTestnet();
 client.setOperator(
@@ -50,6 +54,18 @@ app.get(
 app.get("/topic/id", async function(req, res) {
     res.json(await getTopicId());
 });
+app.get(
+    "/teams",
+    (req, res) => {
+        res.json(teams);
+    }
+);
+app.get(
+    "/free-agents",
+    (req, res) => {
+        res.json(freeAgents);
+    }
+);
 app.listen(
     environment_variables.port,
     () => console.log(`Fair Team Builder server listening on port ${environment_variables.port}.`)
