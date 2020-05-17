@@ -4,8 +4,10 @@
   "description": "Team Building Web Application Using Blockchain",
   "main": "index.js",
   "scripts": {
+    "prestart": "npm run build",
     "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
