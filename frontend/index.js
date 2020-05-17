@@ -81,11 +81,6 @@ async function getTopicId() {
     return (await axios.get("/topic/id")).data;
 }
 
-async function handleMessage() {
-    Promise.resolve(getTeams()).then(teams => renderTeams(teams));
-    Promise.resolve(getFreeAgents()).then(freeAgents => renderFreeAgents(freeAgents));
-}
-
 renderHeader();
 if (user) {
     Promise.resolve(getTeams()).then(teams => renderTeams(teams));
@@ -96,13 +91,4 @@ if (user) {
         user.accountId,
         user.privateKey
     );
-
-    const mirrorClient = new MirrorClient(
-        "hcs.testnet.mirrornode.hedera.com:5600"
-    );
-    Promise.resolve(getTopicId()).then(topicId => {
-        new MirrorConsensusTopicQuery()
-            .setTopicId(topicId)
-            .subscribe(mirrorClient, handleMessage);
-    });
 }
