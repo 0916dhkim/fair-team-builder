@@ -32,7 +32,8 @@ async function getTopicId() {
 
 // Express
 const app = express();
-app.get("/", (req, res) => res.send("Hello, World!"));
+app.use(express.static("static"));
+app.use(express.static("dist"));
 app.get("/topic/id", async function(req, res) {
     res.json(await getTopicId());
 });
