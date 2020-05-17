@@ -1,0 +1,19 @@
+{
+  "name": "fair-team-builder",
+  "version": "0.0.0",
+  "description": "Team Building Web Application Using Blockchain",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/0916dhkim/fair-team-builder.git"
+  },
+  "author": "Donghyeon Kim",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/0916dhkim/fair-team-builder/issues"
+  },
+  "homepage": "https://github.com/0916dhkim/fair-team-builder#readme"
+}
