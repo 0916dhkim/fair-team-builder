@@ -1,7 +1,6 @@
 const {
     Client,
-    MirrorClient,
-    MirrorConsensusTopicQuery
+    ConsensusMessageSubmitTransaction
 } = require("@hashgraph/sdk");
 const axios = require("axios").default;
 
@@ -71,6 +70,13 @@ function renderFreeAgents(freeAgents) {
     }
 }
 
+const freeAgentRegistrationForm = document.getElementById("free-agent-registration-form");
+const freeAgentDescription = document.getElementById("free-agent-description");
+freeAgentRegistrationForm.onsubmit = function(e) {
+    e.preventDefault();
+    sendMessage(["REGISTER", user.username, freeAgentDescription.value]);
+}
+
 async function getTeams() {
     return (await axios.get("/teams")).data;
 }
@@ -87,10 +93,17 @@ if (user) {
     content.style = "display: block";
     Promise.resolve(getTeams()).then(teams => renderTeams(teams));
     Promise.resolve(getFreeAgents()).then(freeAgents => renderFreeAgents(freeAgents));
+}
 
+async function sendMessage(words) {
+    console.log(`Sending message ${words}`);
     const client = Client.forTestnet();
     client.setOperator(
         user.accountId,
         user.privateKey
     );
+    new ConsensusMessageSubmitTransaction()
+        .setTopicId(await getTopicId())
+        .setMessage(words.join("ℏ"))
+        .execute(client);
 }
