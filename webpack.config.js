@@ -13,5 +13,13 @@ module.exports = {
         filename: "[name].js",
         path: path.resolve(__dirname, "dist")
     },
-    devtool: "inline-source-map"
+    devtool: "inline-source-map",
+    module: {
+        rules: [
+            {
+                test: /\.css$/,
+                use: ["style-loader", "css-loader"]
+            }
+        ]
+    }
 }
