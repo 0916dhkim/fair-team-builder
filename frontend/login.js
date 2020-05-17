@@ -3,6 +3,7 @@ const {
     AccountInfoQuery
 } = require("@hashgraph/sdk");
 
+const usernameInput = document.getElementById("username");
 const accountIdInput = document.getElementById("accountId");
 const publicKeyInput = document.getElementById("publicKey");
 const privateKeyInput = document.getElementById("privateKey");
@@ -26,6 +27,7 @@ async function verifyUser(user) {
 function login(e) {
     e.preventDefault();
     const user = {
+        username: usernameInput.value,
         accountId: accountIdInput.value,
         publicKey: publicKeyInput.value,
         privateKey: privateKeyInput.value
